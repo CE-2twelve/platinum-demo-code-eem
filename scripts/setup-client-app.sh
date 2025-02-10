@@ -32,8 +32,10 @@ line_separator () {
   echo "####################### $1 #######################"
 }
 
-namespace=${1:-"cp4i"}
-export GATEWAY_ENDPOINT=$(oc get eventgateway ademo-event-gw -o jsonpath='{..endpoints[?(@.name == "external-route-https")].uri}' | cut -d'/' -f3):443
+#namespace=${1:-"cp4i"}
+namespace=${1:-"cp4i-eventstreams"}
+#export GATEWAY_ENDPOINT=$(oc get eventgateway ademo-event-gw -o jsonpath='{..endpoints[?(@.name == "external-route-https")].uri}' | cut -d'/' -f3):443
+export GATEWAY_ENDPOINT=$(oc get eventgateway my-eem-gateway -n event-automation -o jsonpath='{..endpoints[?(@.name == "external-route-https")].uri}' | cut -d'/' -f3):443
 export KAFKA_CLIENT_ID=$2
 export GATEWAY_USERNAME=$3
 export GATEWAY_PASSWORD=$4
